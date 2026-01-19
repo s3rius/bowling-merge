@@ -18,6 +18,7 @@ func set_pawn_type(ptype: int):
 	self.mass = ptype * 5
 	$Collider.scale = new_scale
 	$Mesh.scale = new_scale
+	$Mark.text = str(ptype)
 
 func _physics_process(_delta: float) -> void:
 	for colliding in get_colliding_bodies():
@@ -28,3 +29,4 @@ func _physics_process(_delta: float) -> void:
 			pawn.queue_free()
 			self.set_pawn_type(self.pawn_type + 1)
 			self.position = self.position + (pawn.position - self.position) / 2.0
+			break

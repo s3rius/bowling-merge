@@ -27,3 +27,9 @@ shape = SubResource("CylinderShape3D_ccfo0")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 mesh = SubResource("CylinderMesh_eqwak")
 skeleton = NodePath("")
+
+[node name="Mark" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.51, 0)
+modulate = Color(0, 0, 0, 1)
+text = "1"
+font_size = 27
