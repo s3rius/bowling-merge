@@ -2,6 +2,8 @@ extends RigidBody3D
 
 class_name Pawn
 
+signal merged
+
 var velocity: Vector3 = Vector3.ZERO
 var pawn_type: int = 1;
 
@@ -38,6 +40,7 @@ func _on_body_entered(body: Node) -> void:
 		var pawn = body as Pawn
 		if pawn.pawn_type == self.pawn_type:
 			pawn.queue_free()
+			merged.emit(self.pawn_type)
 			self.set_pawn_type(self.pawn_type + 1)
 			self.position = self.position + (pawn.position - self.position) / 2.0
 			return
@@ -47,6 +50,7 @@ func start_blinking() -> void:
 
 func stop_blinking() -> void:
 	$BlinkTimer.stop()
+	self.visible = true
 
 func _on_blink_timer_timeout() -> void:
 	self.visible = not self.visible

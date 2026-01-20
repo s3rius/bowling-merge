@@ -12,20 +12,44 @@ var touch_was_active: bool = false;
 var ray_from: Vector3;
 var ray_to: Vector3;
 var playing: bool = true
+var score: int = 0
+
+var items_box: Array[int] = [1, 2, 3]
+
+func choose_next_item() -> int:
+	var next_item = items_box.pop_back()
+	if items_box.size() == 0:
+		items_box = [1, 2, 3]
+		items_box.shuffle()
+	return next_item
 
 func spawn_new() -> void:
 	if active_pawn != null:
 		return
 	var spawn_point: Node3D = get_node("SpawnPoint") as Node3D
 	var pawn = pawn_scene.instantiate() as Pawn
-	pawn.set_pawn_type(randi_range(1, 3))
+	var next_item = choose_next_item()
+	pawn.set_pawn_type(next_item)
 	pawn.contact_monitor = false
 	pawn.disable_pawn_collisions()
 	pawn.freeze = true
 	pawn.position = spawn_point.position
+	pawn.connect("merged", _on_pawn_merged)
 	self.active_pawn = pawn
 	var pawns: Node3D = $Pawns
 	pawns.add_child(pawn)
+	next_item = randi_range(1, 3)
+	$HUD.set_next_item(items_box[-1])
+
+func _on_pawn_merged(pawn_type: int) -> void:
+	score += pawn_type * 10
+	$HUD.set_score(score)
+
+func _ready() -> void:
+	$Limit.connect("limit_hit", game_over)
+	get_tree().get_root().connect("go_back_request", go_to_main_menu)
+	items_box.shuffle()
+	$HUD.set_score(0)
 
 # # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -60,18 +84,21 @@ func game_over() -> void:
 	playing = false
 	$GameOverPopUp.show()
 
+func go_to_main_menu() -> void:
+	get_tree().change_scene_to_file("res://scenes/menus/MainMenu.tscn")
+
 func _input(event: InputEvent) -> void:
 	if active_pawn == null:
 		return
 	if playing == false:
 		return
-	if event is InputEventScreenDrag:
-		var camera: Camera3D = $MainCamera;
+	var camera: Camera3D = $MainCamera;
+	if event is InputEventScreenDrag or event is InputEventScreenTouch:
 		# We remember rays for the next call of physics_process,
 		self.ray_from = camera.project_ray_origin(event.position)
 		self.ray_to = self.ray_from + camera.project_ray_normal(event.position) * 100
 		self.touch_active = true
-	if event is InputEventScreenTouch:
-		if not event.pressed:
-			self.touch_was_active = true
-			self.touch_active = false
+		if event is InputEventScreenTouch:
+			if not event.pressed:
+				self.touch_was_active = true
+				self.touch_active = false

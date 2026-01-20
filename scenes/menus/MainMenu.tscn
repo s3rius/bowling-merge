@@ -1,9 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://h1sw1wgnts3f"]
 
+[ext_resource type="Theme" uid="uid://c5grbnylvu6xl" path="res://themes/main-theme.tres" id="1_bqojv"]
 [ext_resource type="Script" uid="uid://cmg3m3mtklioi" path="res://scripts/menus/main_menu.gd" id="1_wlpbi"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_wlpbi"]
-font_size = 32
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -12,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_bqojv")
 script = ExtResource("1_wlpbi")
 
 [node name="VFlowContainer" type="VBoxContainer" parent="."]
@@ -32,7 +31,6 @@ alignment = 1
 [node name="Label" type="Label" parent="VFlowContainer"]
 layout_mode = 2
 text = "Bowling merge"
-label_settings = SubResource("LabelSettings_wlpbi")
 
 [node name="StartButton" type="Button" parent="VFlowContainer"]
 layout_mode = 2
@@ -41,6 +39,3 @@ text = "Start"
 [node name="QuitButton" type="Button" parent="VFlowContainer"]
 layout_mode = 2
 text = "Quit"
-
-[connection signal="pressed" from="VFlowContainer/StartButton" to="." method="start_game"]
-[connection signal="pressed" from="VFlowContainer/QuitButton" to="." method="quit_game"]
