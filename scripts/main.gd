@@ -47,7 +47,6 @@ func _on_pawn_merged(pawn_type: int) -> void:
 
 func _ready() -> void:
 	$Limit.connect("limit_hit", game_over)
-	get_tree().get_root().connect("go_back_request", go_to_main_menu)
 	items_box.shuffle()
 	$HUD.set_score(0)
 
@@ -102,3 +101,7 @@ func _input(event: InputEvent) -> void:
 			if not event.pressed:
 				self.touch_was_active = true
 				self.touch_active = false
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		go_to_main_menu()

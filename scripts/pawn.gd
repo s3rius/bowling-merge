@@ -12,6 +12,7 @@ var pawn_type: int = 1;
 func _ready() -> void:
 	self.contact_monitor = false
 	self.max_contacts_reported = 10
+	self.connect("body_entered", _on_body_entered)
 
 func disable_pawn_collisions():
 	# Pawn layer

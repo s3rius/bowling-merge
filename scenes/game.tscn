@@ -19,10 +19,10 @@ friction = 0.08
 bounce = 0.2
 
 [sub_resource type="BoxMesh" id="BoxMesh_8cj0n"]
-size = Vector3(1.5, 0.05, 4)
+size = Vector3(1.9, 0.05, 3.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uwrxv"]
-size = Vector3(1.5, 0.05, 4)
+size = Vector3(1.5, 0.05, 3.2164001)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yqjtg"]
 
@@ -41,20 +41,20 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lbhrr"]
 material = SubResource("StandardMaterial3D_lbhrr")
-size = Vector3(1.52, 0.085, 0.015)
+size = Vector3(1.9, 0.085, 0.015)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iywne"]
 size = Vector3(0, 0, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lbhrr"]
-size = Vector3(1.5, 1, 0.8)
+size = Vector3(1.904541, 1, 0.8)
 
 [node name="GameScene" type="Node3D"]
 script = ExtResource("1_uwrxv")
 pawn_scene = ExtResource("2_yqjtg")
 
 [node name="MainCamera" type="Camera3D" parent="."]
-transform = Transform3D(-1, -4.37114e-08, 7.5710346e-08, 1.5880527e-08, 0.7607912, 0.64899683, -8.596832e-08, 0.64899683, -0.7607912, 0.013, 1.9062746, -1.0387514)
+transform = Transform3D(-1, -4.3711385e-08, 7.5710346e-08, 2.642675e-08, 0.6743668, 0.7383966, -8.333288e-08, 0.7383966, -0.6743668, 0.013, 3.154984, -0.66493535)
 environment = SubResource("Environment_lbhrr")
 current = true
 
@@ -70,13 +70,15 @@ collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_uwrxv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Board/Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3514185)
 mesh = SubResource("BoxMesh_8cj0n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Board/Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3625641)
 shape = SubResource("BoxShape3D_uwrxv")
 
 [node name="RightStopper" type="StaticBody3D" parent="Board"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.05, 0.2, -0.856)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.2683953, 0.2, -0.85599995)
 collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_yqjtg")
 
@@ -84,7 +86,7 @@ physics_material_override = SubResource("PhysicsMaterial_yqjtg")
 shape = SubResource("BoxShape3D_lnu2h")
 
 [node name="LeftStopper" type="StaticBody3D" parent="Board"]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.05, 0.2, -0.856)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.2750897, 0.2, -0.85599995)
 collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_lnu2h")
 
@@ -92,7 +94,7 @@ physics_material_override = SubResource("PhysicsMaterial_lnu2h")
 shape = SubResource("BoxShape3D_lnu2h")
 
 [node name="ForwardStopper" type="StaticBody3D" parent="Board"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 1.105)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.34455156)
 collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_lbhrr")
 
@@ -101,9 +103,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.18957424)
 shape = SubResource("BoxShape3D_yqjtg")
 
 [node name="SpawnPoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.081845075, -0.16033739)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.081845075, 0.17011231)
 
 [node name="Limit" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.31096804)
 script = ExtResource("3_lnu2h")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Limit"]
@@ -123,7 +126,7 @@ collision_mask = 2
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Limit/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.22827148)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00061035156, 0, 0.22827148)
 shape = SubResource("BoxShape3D_lbhrr")
 
 [node name="LimitTimer" type="Timer" parent="Limit"]
