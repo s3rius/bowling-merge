@@ -52,7 +52,6 @@ size = Vector3(1.904541, 1, 0.8)
 [node name="GameScene" type="Node3D"]
 script = ExtResource("1_uwrxv")
 pawn_scene = ExtResource("2_yqjtg")
-pawn_velocity = 4.0
 
 [node name="MainCamera" type="Camera3D" parent="."]
 transform = Transform3D(-1, -4.3711385e-08, 7.5710346e-08, 2.642675e-08, 0.6743668, 0.7383966, -8.333288e-08, 0.7383966, -0.6743668, 0.013, 3.154984, -0.66493535)

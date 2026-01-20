@@ -12,6 +12,8 @@ var pawn_type: int = 1;
 func _ready() -> void:
 	self.contact_monitor = false
 	self.max_contacts_reported = 100
+	self.axis_lock_angular_z = true
+	self.axis_lock_angular_x = true
 	self.connect("body_entered", _on_body_entered)
 
 func disable_pawn_collisions():
@@ -30,10 +32,10 @@ func enable_pawn_collisions():
 func set_pawn_type(ptype: int):
 	self.pawn_type = ptype
 	var scale_factor = 1.0 + (0.4 * self.pawn_type)
-	var new_scale = Vector3(scale_factor, 1.0, scale_factor)
+	var scale_vector = Vector3(scale_factor, 1.0, scale_factor)
 	self.mass = ptype * 15
-	$Collider.scale = new_scale
-	$Mesh.scale = new_scale
+	$Collider.scale = scale_vector 
+	$Mesh.scale = scale_vector 
 	$Mark.text = str(ptype)
 
 func _on_body_entered(body: Node) -> void:
