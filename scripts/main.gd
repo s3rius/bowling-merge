@@ -11,6 +11,7 @@ var touch_active: bool = false;
 var touch_was_active: bool = false;
 var ray_from: Vector3;
 var ray_to: Vector3;
+var playing: bool = true
 
 func spawn_new() -> void:
 	if active_pawn != null:
@@ -18,6 +19,8 @@ func spawn_new() -> void:
 	var spawn_point: Node3D = get_node("SpawnPoint") as Node3D
 	var pawn = pawn_scene.instantiate() as Pawn
 	pawn.set_pawn_type(randi_range(1, 3))
+	pawn.contact_monitor = false
+	pawn.disable_pawn_collisions()
 	pawn.freeze = true
 	pawn.position = spawn_point.position
 	self.active_pawn = pawn
@@ -28,15 +31,6 @@ func spawn_new() -> void:
 func _process(_delta: float) -> void:
 	if self.active_pawn == null:
 		spawn_new()
-
-func check_all_stopped()->bool:
-	var all_stopped: bool = true;
-	for node in $Pawns.get_children():
-		var pawn = node as Pawn
-		var velocity = Vector2(pawn.linear_velocity.x, pawn.linear_velocity.z)
-		if not velocity.abs() < Vector2(0.001, 0.001):
-			all_stopped = false
-	return all_stopped
 
 func _physics_process(_delta: float) -> void:
 	# We map to a point on a plane to make active_pawn follow 
@@ -56,14 +50,20 @@ func _physics_process(_delta: float) -> void:
 	if self.touch_was_active:
 		self.active_pawn.linear_velocity= Vector3(0.0, 0.0, self.pawn_velocity)
 		self.active_pawn.freeze = false
+		self.active_pawn.contact_monitor = true
+		self.active_pawn.enable_pawn_collisions()
 		self.active_pawn = null
 		self.touch_was_active = false
 		return
 
+func game_over() -> void:
+	playing = false
+	$GameOverPopUp.show()
 
-		
 func _input(event: InputEvent) -> void:
 	if active_pawn == null:
+		return
+	if playing == false:
 		return
 	if event is InputEventScreenDrag:
 		var camera: Camera3D = $MainCamera;

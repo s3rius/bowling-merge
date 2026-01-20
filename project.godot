@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Bowling Merge"
-run/main_scene="uid://cv7846us67iur"
+run/main_scene="uid://h1sw1wgnts3f"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
 
@@ -24,6 +24,12 @@ window/handheld/orientation=1
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[layer_names]
+
+3d_physics/layer_1="FLOOR"
+3d_physics/layer_2="PAWN"
+3d_physics/layer_3="LIMITS"
 
 [physics]
 

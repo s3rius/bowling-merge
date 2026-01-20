@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ci7rkfrmcyok2"]
+[gd_scene load_steps=6 format=3 uid="uid://ci7rkfrmcyok2"]
 
 [ext_resource type="Script" uid="uid://bsppusw25hdeo" path="res://scripts/pawn.gd" id="1_bab8k"]
 
@@ -9,12 +9,18 @@ margin = 0.5
 height = 0.5
 radius = 0.1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bab8k"]
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_eqwak"]
+lightmap_size_hint = Vector2i(6, 7)
+material = SubResource("StandardMaterial3D_bab8k")
 top_radius = 0.1
 bottom_radius = 0.1
 height = 0.5
 
 [node name="Pawn" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_bab8k")
 center_of_mass_mode = 1
 script = ExtResource("1_bab8k")
@@ -33,3 +39,9 @@ transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0
 modulate = Color(0, 0, 0, 1)
 text = "1"
 font_size = 27
+
+[node name="BlinkTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="BlinkTimer" to="." method="_on_blink_timer_timeout"]
