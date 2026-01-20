@@ -11,7 +11,7 @@ var pawn_type: int = 1;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.contact_monitor = false
-	self.max_contacts_reported = 10
+	self.max_contacts_reported = 100
 	self.connect("body_entered", _on_body_entered)
 
 func disable_pawn_collisions():

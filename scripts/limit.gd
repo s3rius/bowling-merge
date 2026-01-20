@@ -14,7 +14,8 @@ func on_body_entered(body: Node) -> void:
 	var pawn = body as Pawn
 	bodies_in_limit[pawn.get_instance_id()] = true
 	pawn.start_blinking()
-	$LimitTimer.start(limit_timer)
+	if $LimitTimer.is_stopped():
+		$LimitTimer.start(limit_timer)
 
 func on_body_exited(body: Node) -> void:
 	var pawn = body as Pawn
