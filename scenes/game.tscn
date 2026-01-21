@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://cv7846us67iur"]
 
 [ext_resource type="Script" uid="uid://dfb2t702qoffe" path="res://scripts/main.gd" id="1_uwrxv"]
-[ext_resource type="PackedScene" uid="uid://ci7rkfrmcyok2" path="res://scenes/pawn.tscn" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://8r0lt5usfjnt" path="res://scripts/limit.gd" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://e0x72ikcx15" path="res://assets/default.blend" id="3_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://b46hnsev1wp2u" path="res://scenes/menus/GameOverPopUP.tscn" id="4_lbhrr"]
 [ext_resource type="Theme" uid="uid://c5grbnylvu6xl" path="res://themes/main-theme.tres" id="5_iywne"]
 [ext_resource type="Script" uid="uid://c1h2hls5tx662" path="res://scripts/in-game-hud.gd" id="6_p57ef"]
@@ -22,7 +22,7 @@ bounce = 0.2
 size = Vector3(1.9, 0.05, 3.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uwrxv"]
-size = Vector3(1.5, 0.05, 3.2164001)
+size = Vector3(2, 0.05, 3.5133955)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yqjtg"]
 
@@ -51,7 +51,7 @@ size = Vector3(1.904541, 1, 0.8)
 
 [node name="GameScene" type="Node3D"]
 script = ExtResource("1_uwrxv")
-pawn_scene = ExtResource("2_yqjtg")
+pawns_scene = ExtResource("3_u5sy4")
 
 [node name="MainCamera" type="Camera3D" parent="."]
 transform = Transform3D(-1, -4.3711385e-08, 7.5710346e-08, 2.642675e-08, 0.6743668, 0.7383966, -8.333288e-08, 0.7383966, -0.6743668, 0.013, 3.154984, -0.66493535)
@@ -67,6 +67,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.516)
 [node name="Plane" type="StaticBody3D" parent="Board"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.965)
 collision_mask = 2
+input_ray_pickable = false
 physics_material_override = SubResource("PhysicsMaterial_uwrxv")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Board/Plane"]
@@ -74,12 +75,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3514185)
 mesh = SubResource("BoxMesh_8cj0n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Board/Plane"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3625641)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010803223, 0, -0.21386635)
 shape = SubResource("BoxShape3D_uwrxv")
 
 [node name="RightStopper" type="StaticBody3D" parent="Board"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.2683953, 0.2, -0.85599995)
 collision_mask = 2
+input_ray_pickable = false
 physics_material_override = SubResource("PhysicsMaterial_yqjtg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Board/RightStopper"]
@@ -88,13 +90,14 @@ shape = SubResource("BoxShape3D_lnu2h")
 [node name="LeftStopper" type="StaticBody3D" parent="Board"]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.2750897, 0.2, -0.85599995)
 collision_mask = 2
+input_ray_pickable = false
 physics_material_override = SubResource("PhysicsMaterial_lnu2h")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Board/LeftStopper"]
 shape = SubResource("BoxShape3D_lnu2h")
 
 [node name="ForwardStopper" type="StaticBody3D" parent="Board"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.34455156)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0.3425126)
 collision_mask = 2
 physics_material_override = SubResource("PhysicsMaterial_lbhrr")
 
@@ -103,7 +106,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.18957424)
 shape = SubResource("BoxShape3D_yqjtg")
 
 [node name="SpawnPoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.081845075, 0.17011231)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.041514546, 0.17011231)
 
 [node name="Limit" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.31096804)
@@ -130,8 +133,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00061035156, 0, 0.22827148
 shape = SubResource("BoxShape3D_lbhrr")
 
 [node name="LimitTimer" type="Timer" parent="Limit"]
-
-[node name="Pawns" type="Node3D" parent="."]
 
 [node name="GameOverPopUp" parent="." instance=ExtResource("4_lbhrr")]
 visible = false
@@ -172,5 +173,7 @@ text = "Score:"
 
 [node name="ScoreValue" type="Label" parent="HUD/VBox/Score"]
 layout_mode = 2
+
+[node name="SpawnedPawns" type="Node3D" parent="."]
 
 [connection signal="timeout" from="Limit/LimitTimer" to="Limit" method="on_timer_timeout"]
